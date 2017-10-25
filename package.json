@@ -18,6 +18,7 @@
     "asbundle": "module=${module:-cjs}; echo $(tput bold)asbundle$(tput sgr0);time asbundle $module/main.js > asbundle.js",
     "browserify": "module=${module:-cjs}; if [ \"$module\" != \"cjs\" ]; then rm -rf browserify.js && exit 0; fi; echo $(tput bold)browserify$(tput sgr0);time browserify $module/main.js > browserify.js",
     "build": "npm run asbundle && npm run browserify && npm run rollup  && npm run webpack && npm run html",
+    "clean": "rm -rf *.js",
     "gzipped": "echo $(tput bold)gzipped$(tput sgr0);for f in $(ls *.js); do echo \"$f $(uglifyjs $f --compress --mangle | gzip | wc -c)\"; done",
     "html": "rm -rf test/*.html; for f in $(ls *.js); do echo \"<!doctype html><script>var process={env:{}};</script><script src='../$f'></script>\" > test/${f:0:-3}.html; done",
     "minified": "echo $(tput bold)minified$(tput sgr0);for f in $(ls *.js); do echo \"$f $(uglifyjs $f --compress --mangle | wc -c)\"; done",
